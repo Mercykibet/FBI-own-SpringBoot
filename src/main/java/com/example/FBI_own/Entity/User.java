@@ -11,14 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-
-@Entity
+import java.util.List;
 @Setter
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
 @Table(name = "users")
-public class User implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 
@@ -33,7 +31,6 @@ public class User implements UserDetails {
     private  String password;
 
 //Getters Setters
-
     public Long getId() {
         return id;
     }
@@ -65,50 +62,19 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public String getPassword() {
+    public String getPassword(){
         return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return "";
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-
-
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList(); // No roles assigned yet
+    public User(String firstName, String lastName, String email, String password){
+        this.firstName= firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password= password;
     }
-
-
-
-
-
-
-
-
-
- /*   public boolean isAccountNonExpired() {
-        return true;
-    }
-
-
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-
-    public boolean isEnabled() {
-        return true;
-    }*/
 
 }

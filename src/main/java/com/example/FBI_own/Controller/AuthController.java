@@ -4,6 +4,7 @@ package com.example.FBI_own.Controller;
 import com.example.FBI_own.Dto.LoginRequestDto;
 import com.example.FBI_own.Dto.LoginResponseDto;
 import com.example.FBI_own.Dto.UserDto;
+import com.example.FBI_own.Dto.UserrDto;
 import com.example.FBI_own.Repository.UserRepository;
 import com.example.FBI_own.Security.JwtUtil;
 import com.example.FBI_own.Service.AuthService;
@@ -23,13 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/users")
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
-    @Autowired
-    private UserService userService;
+    private final AuthService authService;
+
+    private final UserService userService;
+
     private final UserRepository userRepository;
-    @Autowired
-    private JwtUtil jwtUtil;
+
+    private final JwtUtil jwtUtil;
 
 
     public AuthController(UserService userService, UserRepository userRepository, PasswordEncoder passwordEncoder, AuthService authService, JwtUtil jwtUtil) {
@@ -41,12 +42,11 @@ public class AuthController {
     }
 
 //Register user
-    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
+   // private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     @PostMapping("/register")
-    public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto){
+    public ResponseEntity<UserrDto> registerUser(@RequestBody UserrDto userDto){
         try {
-            UserDto createUser=userService.registerUser(userDto);
-            return ResponseEntity.ok(createUser);
+            return ResponseEntity.ok(userDto);
         }catch (RuntimeException e){
             return ResponseEntity.badRequest().body(null);
         }
@@ -64,7 +64,5 @@ public class AuthController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
-
 
 }
