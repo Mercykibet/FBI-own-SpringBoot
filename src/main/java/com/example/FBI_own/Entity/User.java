@@ -92,7 +92,7 @@ public class User implements UserDetails {
 
 
 
-    public boolean isAccountNonExpired() {
+ /*   public boolean isAccountNonExpired() {
         return true;
     }
 
@@ -109,6 +109,6 @@ public class User implements UserDetails {
 
     public boolean isEnabled() {
         return true;
-    }
+    }*/
 
 }

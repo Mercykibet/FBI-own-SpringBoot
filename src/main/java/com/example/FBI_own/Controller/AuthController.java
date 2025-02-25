@@ -24,21 +24,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     @Autowired
+    private AuthService authService;
+    @Autowired
     private UserService userService;
     private final UserRepository userRepository;
     @Autowired
-    //private JwtService jwtService;
     private JwtUtil jwtUtil;
 
 
-    public AuthController(UserService userService, UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
+    public AuthController(UserService userService, UserRepository userRepository, PasswordEncoder passwordEncoder, AuthService authService, JwtUtil jwtUtil) {
         this.userService = userService;
         this.userRepository = userRepository;
+        this.authService = authService;
         this.jwtUtil = jwtUtil;
 
     }
-    @Autowired
-    private AuthService authService;
+
 //Register user
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     @PostMapping("/register")
@@ -54,14 +55,14 @@ public class AuthController {
 
     // Login User
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDto> loginUser(@RequestBody LoginRequestDto loginRequest) {
+    public ResponseEntity<String> loginUser(@RequestBody LoginRequestDto loginRequest) {
         boolean isValidUser = authService.validateUser(loginRequest.getEmail(), loginRequest.getPassword());
 
         if (isValidUser) {
             String token = jwtUtil.generateToken(loginRequest.getEmail());
-            return ResponseEntity.ok(new LoginResponseDto(token));
+            return new ResponseEntity<>(token, HttpStatus.OK);
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
