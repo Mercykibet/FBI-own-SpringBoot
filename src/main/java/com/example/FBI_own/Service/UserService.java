@@ -1,9 +1,8 @@
 package com.example.FBI_own.Service;
 
-import com.example.FBI_own.Dto.UserrDto;
+import com.example.FBI_own.Dto.UserDto;
 import com.example.FBI_own.Entity.User;
 import com.example.FBI_own.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,7 @@ public class UserService  {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public void  registerUser(UserrDto userDTO) {
+    public void  registerUser(UserDto userDTO) {
         // Check if email already exists
         if (userRepository.existsByEmail(userDTO.getEmail())) {
             throw new RuntimeException("Email is already taken");

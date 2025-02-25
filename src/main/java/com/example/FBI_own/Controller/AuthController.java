@@ -2,16 +2,11 @@ package com.example.FBI_own.Controller;
 
 
 import com.example.FBI_own.Dto.LoginRequestDto;
-import com.example.FBI_own.Dto.LoginResponseDto;
 import com.example.FBI_own.Dto.UserDto;
-import com.example.FBI_own.Dto.UserrDto;
 import com.example.FBI_own.Repository.UserRepository;
 import com.example.FBI_own.Security.JwtUtil;
 import com.example.FBI_own.Service.AuthService;
 import com.example.FBI_own.Service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,7 +38,7 @@ public class AuthController {
 
 //Register user
     @PostMapping("/register")
-    public ResponseEntity<UserrDto> registerUser(@RequestBody UserrDto userDto){
+    public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto){
         try {
             return ResponseEntity.ok(userDto);
         }catch (RuntimeException e){
