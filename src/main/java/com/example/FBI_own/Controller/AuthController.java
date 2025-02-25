@@ -42,7 +42,6 @@ public class AuthController {
     }
 
 //Register user
-   // private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     @PostMapping("/register")
     public ResponseEntity<UserrDto> registerUser(@RequestBody UserrDto userDto){
         try {
