@@ -30,6 +30,16 @@ public class User {
     @Column(name = "password")
     private  String password;
 
+
+
+    public User(String firstName, String lastName, String email, String password){
+        this.firstName= firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password= password;
+    }
+    public User(){}
+
 //Getters Setters
     public Long getId() {
         return id;
@@ -64,13 +74,5 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public User(String firstName, String lastName, String email, String password){
-        this.firstName= firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password= password;
-    }
-    public User(){}
 
 }

@@ -13,37 +13,32 @@ import java.util.Optional;
 @RequestMapping("/api/tasks")
 public class TaskController {
 
-    /*private final List<TaskItem> tasks = new ArrayList<>(List.of(
-            new TaskItem(1L, "Task 1", "Description for Task 1"),
-            new TaskItem(2L, "Task 2", "Description for Task 2"),
-            new TaskItem(3L, "Task 3", "Description for Task 3")
-    ));*/
-
     private final TaskService taskService;
 
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
 
-    @GetMapping("/getTasks")
-    public List<TaskItem> getAllTasks() {
-        return taskService.getAllTasks();
-       //return tasks;
+    //add task
+    @PostMapping("/createTask")
+    public ResponseEntity<TaskItem> createdTask(@RequestBody TaskItem task){
+        TaskItem createdTask=taskService.createTask(task);
+        return ResponseEntity.ok(createdTask);
     }
 
+    //fetch all task
+    @GetMapping("/getTasks")
+    public ResponseEntity<List<TaskItem>> getAllTasks() {
+        List<TaskItem> tasks = taskService.getAllTasks();
+        return ResponseEntity.ok(tasks);
+    }
+
+    // Fetch a task by ID
     @GetMapping("/{id}")
     public ResponseEntity<TaskItem> getTaskById(@PathVariable Long id) {
         Optional<TaskItem> task = taskService.getTaskById(id);
         return task.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-    @PostMapping("/createTask")
-    public TaskItem createTask(@RequestBody TaskItem task) {
-        return taskService.createTask(task);
-
-    }
-
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTask(@PathVariable Long id) {
