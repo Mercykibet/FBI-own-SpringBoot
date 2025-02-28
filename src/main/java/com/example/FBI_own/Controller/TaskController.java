@@ -2,6 +2,7 @@ package com.example.FBI_own.Controller;
 
 import com.example.FBI_own.Entity.TaskItem;
 import com.example.FBI_own.Service.TaskService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +23,18 @@ public class TaskController {
     //add task
     @PostMapping("/createTask")
     public ResponseEntity<TaskItem> createdTask(@RequestBody TaskItem task){
-        TaskItem createdTask=taskService.createTask(task);
-        return ResponseEntity.ok(createdTask);
+        try {
+            TaskItem createdTask=taskService.createTask(task);
+            return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
+            //return ResponseEntity.ok(createdTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
+
+
+
     }
 
     //fetch all task
@@ -39,6 +50,9 @@ public class TaskController {
         Optional<TaskItem> task = taskService.getTaskById(id);
         return task.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTask(@PathVariable Long id) {

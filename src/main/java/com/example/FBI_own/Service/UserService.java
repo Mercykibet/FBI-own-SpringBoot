@@ -33,16 +33,7 @@ public class UserService  {
                 encodedPassword
         );
 
-
-//        user.setFirstName(userDTO.getFirstName());
-//        user.setLastName(userDTO.getLastName());  // Added missing parentheses
-//        user.setEmail(userDTO.getEmail());
-//        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        // Save the user to the database
          userRepository.save(user);
-
-        // Convert the saved User entity back to UserDTO for response
-        //return new UserDto(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
 
     }
 

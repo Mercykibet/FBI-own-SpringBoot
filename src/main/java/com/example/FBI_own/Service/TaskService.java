@@ -3,6 +3,7 @@ package com.example.FBI_own.Service;
 import com.example.FBI_own.Entity.TaskItem;
 import com.example.FBI_own.Repository.TaskRepository;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Optional;
 @Service
 public class TaskService {
 
+    @Autowired
     private final TaskRepository taskRepository;
 
     public TaskService(TaskRepository taskRepository) {
@@ -29,6 +31,8 @@ public class TaskService {
     }
 
     public TaskItem createTask(TaskItem task) {
+
+
         return taskRepository.save(task);
     }
 

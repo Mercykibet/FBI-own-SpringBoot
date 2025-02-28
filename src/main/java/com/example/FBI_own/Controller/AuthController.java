@@ -47,7 +47,7 @@ public class AuthController {
             Response<String> r = new Response<>();
             r.setMessage("Success");
             r.setStatus(201);
-            r.setData(null);
+            r.setData("user Registered Successfully");
             return new ResponseEntity<>(r, HttpStatus.CREATED);
         }catch (RuntimeException e){
             return ResponseEntity.badRequest().body(null);
