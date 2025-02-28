@@ -1,8 +1,8 @@
 package com.example.FBI_own.Service;
 
-import com.example.FBI_own.Entity.TaskItem;
+
+import com.example.FBI_own.Entity.Tasks;
 import com.example.FBI_own.Repository.TaskRepository;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,17 +20,17 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public List<TaskItem> getAllTasks() {
+    public List<Tasks> getAllTasks() {
         return taskRepository.findAll();
 
     }
 
-    public Optional<TaskItem> getTaskById(Long id) {
+    public Optional<Tasks> getTaskById(Long id) {
 
         return taskRepository.findById(id);
     }
 
-    public TaskItem createTask(TaskItem task) {
+    public Tasks createTask(Tasks task) {
 
 
         return taskRepository.save(task);

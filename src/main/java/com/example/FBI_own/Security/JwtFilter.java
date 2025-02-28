@@ -9,9 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -21,7 +18,7 @@ import java.util.ArrayList;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
-    private final UserRepository userRepository;  // Replace UserDetailsService
+    private final UserRepository userRepository;
 
     @Autowired
     public JwtFilter(JwtUtil jwtUtil, UserRepository userRepository) {
@@ -36,19 +33,24 @@ public class JwtFilter extends OncePerRequestFilter {
         String token = extractJwtFromRequest(request);
 
         if (token != null) {
-            String email = jwtUtil.extractEmail(token);
+            try {
+                System.out.println("Received JWT Token: " + token);
 
-            if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                // 🔹 Fetch user manually from database
-                User user = userRepository.findByEmail(email).orElse(null);
+                String email = jwtUtil.extractEmail(token);
+                System.out.println("Extracted Email: " + email);
 
-                if (user != null && jwtUtil.validateToken(token)) {
-                    // 🔹 Set authentication manually
-                    UsernamePasswordAuthenticationToken authentication =
-                            new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    User user = userRepository.findByEmail(email).orElse(null);
 
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    if (user != null && jwtUtil.validateToken(token)) {
+                        UsernamePasswordAuthenticationToken authentication =
+                                new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    }
                 }
+            } catch (Exception e) {
+                System.out.println("JWT Error: " + e.getMessage());
             }
         }
 

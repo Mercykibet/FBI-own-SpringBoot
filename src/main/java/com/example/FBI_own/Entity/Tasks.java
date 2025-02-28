@@ -1,10 +1,14 @@
 package com.example.FBI_own.Entity;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Data
@@ -12,7 +16,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 
-public class TaskItem {
+public class Tasks {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,13 +24,13 @@ public class TaskItem {
 
     private String title;
     private String description;
-   // private String imageUrl;
+
 
 
     // Constructors
-    public TaskItem() {}
+    public Tasks() {}
 
-    public TaskItem(String title, String description) {
+    public Tasks(String title, String description) {
         this.title = title;
         this.description = description;
     }
@@ -41,5 +45,4 @@ public class TaskItem {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 }
-
 
