@@ -31,12 +31,17 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for JWT authentication
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/users/**","/api/tasks/**","/api/users/register","/api/tasks/getTasks").permitAll() // Allow public access to authentication endpoints
+                .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers(
+                                "/api/users/**",
+                                "/api/tasks/**",
+                                "/api/users/register",
+                                "/api/tasks/getTasks"
+                        ).permitAll() // Allow public access to authentication endpoints
                         .anyRequest().authenticated() // Secure all other endpoints
                 )
                 //.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless API
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class) // Use jwtFilter instance
+               // .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class) // Use jwtFilter instance
                 .build(); // Build SecurityFilterChain
     }
 
