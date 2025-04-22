@@ -33,8 +33,6 @@ public class TaskController {
 
         }
 
-
-
     }
 
     //fetch all task
