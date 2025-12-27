@@ -27,7 +27,9 @@ public class RecentSession {
 
     public RecentSession() {}
 
-    public RecentSession(String title, LocalDate date, LocalTime time) {
+    public RecentSession(String title,
+                         LocalDate date,
+                         LocalTime time) {
         this.title = title;
         this.date=date;
         this.Time=time;

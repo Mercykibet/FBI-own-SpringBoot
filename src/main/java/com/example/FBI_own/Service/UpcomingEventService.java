@@ -1,8 +1,7 @@
-/*
 package com.example.FBI_own.Service;
 
 import com.example.FBI_own.Dto.UpcomingEventDto;
-import com.example.FBI_own.Entity.UpcomingEvents;
+import com.example.FBI_own.Entity.UpcomingEvent;
 import com.example.FBI_own.Repository.UpcomingEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,7 @@ public class UpcomingEventService {
 
     // Convert DTO to Entity and save it
     public void createEvent(UpcomingEventDto eventDTO) {
-        UpcomingEvents event = new UpcomingEvents(
+        UpcomingEvent event = new UpcomingEvent(
                 eventDTO.getTitle(),
                 eventDTO.getPlace(),
                 LocalDate.parse(eventDTO.getDate(), formatter)
@@ -43,4 +42,3 @@ public class UpcomingEventService {
 
     }
 }
-*/

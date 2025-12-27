@@ -20,7 +20,11 @@ public class Response<T> {
     }
 
     public Response() {
+
     }
+//
+//    public Response() {
+//    }
 
     public T getData() {
         return data;

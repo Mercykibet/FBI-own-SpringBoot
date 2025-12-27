@@ -12,11 +12,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service  // Register this as a Spring Service
+@Service
 public class RecentSessionService {
 
     @Autowired
-    private RecentSessionRepository eventRepository; // Fix repository usage
+    private RecentSessionRepository eventRepository;
 
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -30,20 +30,20 @@ public class RecentSessionService {
         return eventRepository.findAll().stream()
                 .map(session -> new RecentSessionDto(
                         session.getTitle(),
-                        session.getDate().format(dateFormatter),  // Convert LocalDate to String
-                        session.getTime().format(timeFormatter)   // Convert LocalTime to String
+                        session.getDate().format(dateFormatter),
+                        session.getTime().format(timeFormatter)
                 ))
                 .collect(Collectors.toList());
     }
 
     // Convert DTO to Entity and save it
-    public RecentSessionDto createSession(RecentSessionDto sessionDTO) { // Removed static
+    public RecentSessionDto createSession(RecentSessionDto sessionDTO) {
         RecentSession event = new RecentSession(
                 sessionDTO.getTitle(),
-                LocalDate.parse(sessionDTO.getDate(), dateFormatter), // Convert String to LocalDate
-                LocalTime.parse(sessionDTO.getTime(), timeFormatter)  // Convert String to LocalTime
+                LocalDate.parse(sessionDTO.getDate(), dateFormatter),
+                LocalTime.parse(sessionDTO.getTime(), timeFormatter)
         );
-        RecentSession savedEvent = eventRepository.save(event); // Fix repository usage
+        RecentSession savedEvent = eventRepository.save(event);
         return new RecentSessionDto(
                 savedEvent.getTitle(),
                 savedEvent.getDate().format(dateFormatter),

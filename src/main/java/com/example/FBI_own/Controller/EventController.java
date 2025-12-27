@@ -1,4 +1,3 @@
-/*
 package com.example.FBI_own.Controller;
 
 import com.example.FBI_own.Dto.RecentSessionDto;
@@ -33,8 +32,6 @@ public class EventController {
     }
 
 
-
-
     // Endpoint to fetch all recent sessions
     @GetMapping("/recentSession")
     public List<RecentSessionDto> getRecentSessions() {
@@ -48,4 +45,3 @@ public class EventController {
     }
 
 }
-*/
